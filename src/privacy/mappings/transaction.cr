@@ -2,14 +2,6 @@ module Privacy
   struct Transaction
     include JSON::Serializable
 
-    struct Funding
-      include JSON::Serializable
-
-      getter amount : Int32
-      getter token : String
-      getter type : String
-    end
-
     enum Status
       PENDING
       VOIDED
@@ -40,14 +32,15 @@ module Privacy
     end
 
     getter amount : Int32
-    getter card : Types::Card
+    getter card : Privacy::Card
     getter created : String
 
-    # No docs on this
-    getter events : Array(String)
+    # A list of all events that have modified this transaction
+    # Premium field that requires subscription
+    getter events : Array(Privacy::TransactionEvent)
 
     # An array of funding for some reason.
-    getter funding : Array(Funding)
+    getter funding : Array(Privacy::FundingAccount)
     getter merchant : Merchant
 
     @[JSON::Field(converter: Privacy::EnumParser(Privacy::Transaction::Result))]

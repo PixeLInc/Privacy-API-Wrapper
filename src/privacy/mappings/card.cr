@@ -5,6 +5,8 @@ module Privacy
     enum Type
       SINGLE_USE
       MERCHANT_LOCKED
+
+      # UNLOCKED and PHYSICAL require a premium subscription
       UNLOCKED
       PHYSICAL
     end
@@ -22,20 +24,11 @@ module Privacy
       FOREVER
     end
 
-    struct Funding
-      include JSON::Serializable
-
-      getter account_name : String
-      getter token : String
-
-      # I don't know what the types are other than 'DEPOSITORY_CHECKING'
-      getter type : String
-    end
-
-    getter funding : Funding
+    getter funding : Privacy::FundingAccount
     getter hostname : String
     getter last_four : String
     getter memo : String
+    getter pan : String
     getter spend_limit : Int32
     getter token : String
 
@@ -47,5 +40,10 @@ module Privacy
 
     @[JSON::Field(converter: Privacy::EnumParser(Privacy::Card::Type))]
     getter type : Type
+
+    # The following require a Privacy PREMIUM Subscription to use.
+    getter cvv : String
+    getter exp_month : String
+    getter exp_year : String
   end
 end

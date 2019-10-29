@@ -5,7 +5,7 @@ module Privacy
     end
 
     def self.to_json(value, builder)
-      value.to_s
+      builder.string(value.to_s)
     end
   end
 end
