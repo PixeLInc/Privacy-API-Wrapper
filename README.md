@@ -16,7 +16,7 @@ dependencies:
 ```crystal
 require "privacy"
 
-client = Privacy::Client.new("api-key <api-token>", true)
+client = Privacy::Client.new("api-token", true)
 
 # You can optionally supply true/false as another parameter to Client#new
 # to enable/disable testing against the sandbox environment (https://sandbox.privacy.com/v1)
