@@ -190,7 +190,7 @@ module Privacy
     # Refunds an amount back to the card
     # Returns a token for the trasaction
     # [API Docs](https://developer.privacy.com/docs#endpoints-simulate-return)
-    def refund(
+    def return(
       descriptor : String, # Merchant Descriptor
       pan : String,        # 16 Digit Card Number
       amount : Int32       # Amount to return to card in pennies
