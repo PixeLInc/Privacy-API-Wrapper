@@ -61,6 +61,21 @@ module Privacy
       Array(Card).from_json(response, root: "data")
     end
 
+    # List funding accounts for an account
+    # [API Docs](https://developer.privacy.com/docs#endpoints-list-funding-accounts)
+    def funding_sources(
+      filter_type : String? = nil # Can be "bank" or "card", or nil.
+    )
+      unless filter_type.nil? || ["bank", "card"].includes?(filter_type)
+        raise "Invalid filter type: `#{filter_type}`, must be 'card', 'bank' or nil"
+      end
+      endpoint = filter_type.nil? ? "/fundingsource" : "/fundingsource/#{filter_type}"
+
+      response = request("GET", endpoint)
+
+      Array(FundingAccount).from_json(response)
+    end
+
     # List transactions from token
     # [API Docs](https://developer.privacy.com/docs#endpoints-list-transactions)
     def transactions(
@@ -128,6 +143,24 @@ module Privacy
       response = request("PUT", "/card", payload)
 
       Card.from_json(response)
+    end
+
+    # This action requires an Enterprise account
+    # [API Docs](https://developer.privacy.com/docs#endpoints-add-bank-account)
+    def add_bank(
+      routing_number : Int32,      # Routing number of bank account
+      account_number : Int32,      # Account number of bank account
+      account_name : String? = nil # An optional nickname for identification
+    )
+      payload = {
+        routing_number: routing_number,
+        account_number: account_number,
+        account_name:   account_name,
+      }.to_json
+
+      response = request("POST", "/fundingsource/bank", payload)
+
+      FundingAccount.from_json(response, root: "data")
     end
 
     # Currently, the 3 below endpoints are in SANDBOX only.

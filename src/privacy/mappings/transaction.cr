@@ -39,7 +39,6 @@ module Privacy
     # Premium field that requires subscription
     getter events : Array(Privacy::TransactionEvent)
 
-    # An array of funding for some reason.
     getter funding : Array(Privacy::FundingAccount)
     getter merchant : Merchant
 

@@ -30,6 +30,13 @@ client.cards
 # Grabs all transactions from your account
 client.transactions
 
+# Grabs all funding source from your account
+# Takes an optional parameter to specify which type
+# Returns `Array(Privacy::FundingAccount)`
+client.funding_sources(
+  "bank" # This can be "bank", "card", nil, or emitted entirely
+)
+
 # You can filter out using the paramaters from the docs
 # (https://developer.privacy.com/docs#endpoints-list-cards)
 client.cards(
@@ -69,6 +76,16 @@ client.update_card(
 )
 
 # Returns a `Privacy::Card`
+
+# Add a bank funding source to your account
+# NOTE: This requires an ENTERPRISE subscription
+client.add_bank(
+  123456789, # Routing number
+  123456,    # Account number
+  "Funding account!" # Optional account name for identification
+)
+
+# Returns a `Privacy::FundingAccount`
 ```
 
 # Sandbox only endpoints
