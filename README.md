@@ -1,3 +1,10 @@
+# EOL
+
+Privacy randomly got rid of their developer api and webhooks a while ago.
+I've contacted them about it and they said they are not interested in supporting individuals anymore.
+
+sad.
+
 # A privacy.com API Binding
 A binding to the [Privacy API](http://developer.privacy.com) in Crystal.
 Provides full coverage of the entire API, including premium and sandboxed endpoints.
